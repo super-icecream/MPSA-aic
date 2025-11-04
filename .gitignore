@@ -63,3 +63,11 @@ MPSA/pretrained/*.bin
 MPSA/visualize/saved_features/*.pth
 MPSA/visualize/saved_features/*.bin
 
+# Docker镜像打包文件（太大，不上传）
+Docker/rar/*.tar
+Docker/dockerd.log
+Docker/build.log
+
+# Claude会话记录
+.claude/
+

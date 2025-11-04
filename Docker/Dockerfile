@@ -4,14 +4,16 @@
 # 支持数据集：WebFG-400 和 WebiNat-5000
 # ===================================
 
-# 基础镜像：PyTorch 2.0.0 + CUDA 11.8
-FROM pytorch/pytorch:2.0.0-cuda11.8-cudnn8-runtime
+# 基础镜像：PyTorch 2.1.2 + CUDA 11.8 + cuDNN 8
+# 注意：PyTorch 2.0.x官方未提供CUDA 11.8镜像，使用2.1.2版本（最接近且兼容）
+FROM pytorch/pytorch:2.1.2-cuda11.8-cudnn8-runtime
 
 # 设置工作目录
 WORKDIR /app
 
 # 安装系统依赖
-RUN apt-get update && apt-get install -y \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
     git \
     wget \
     vim \
@@ -27,7 +29,7 @@ RUN apt-get update && apt-get install -y \
 COPY requirements_docker.txt /app/requirements_docker.txt
 
 # 安装Python依赖
-# 注意：PyTorch 2.0.0已包含在基础镜像中
+# 注意：PyTorch 2.1.2已包含在基础镜像中
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r /app/requirements_docker.txt
 

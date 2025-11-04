@@ -13,9 +13,9 @@
 ## 🐳 Docker 镜像信息
 
 ### 基础环境
-- **基础镜像**: `pytorch/pytorch:2.0.0-cuda11.8-cudnn8-runtime`
-- **Python版本**: 3.8.10
-- **PyTorch版本**: 2.0.0
+- **基础镜像**: `pytorch/pytorch:2.1.2-cuda11.8-cudnn8-runtime`
+- **Python版本**: 3.8+
+- **PyTorch版本**: 2.1.2 (向后兼容2.0.0代码)
 - **CUDA版本**: 11.8
 - **cuDNN版本**: 8
 
