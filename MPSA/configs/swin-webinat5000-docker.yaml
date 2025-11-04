@@ -1,0 +1,51 @@
+data:
+  img_size: 384
+  dataset: webinat5000  
+  batch_size: 64     # H800 80GB可以支持更大批次，最大可以尝试96，但是目前测试能不能正常读取运行，所以采用小批次
+  data_root: /data/  # Docker容器内数据集挂载路径
+
+  #blur: 0.1         # 增强模糊增强
+  #color: 0.1        # 增强颜色抖动
+  #hue: 0.1          # 色调变换
+  #rotate: 10        # 轻微旋转
+  mixup: 0.4        # 强化mixup
+  cutmix: 0.4       # 强化cutmix
+  #autoaug: False     # 启用AutoAugment
+
+parameters:
+  parts_ratio: 2    #这个不动
+  num_heads: 32     #这个不动
+  att_drop: 0.3     # 注意力Dropout
+  head_drop: 0.3    # 注意力头Dropout
+  parts_drop: 0.6   # 部分丢弃
+  fwp: True
+  pos: True
+  cross_layer: True
+  parts_base: 0.
+
+model:
+  type: swin
+  name: swin_base_patch4_window12_384  # ImageNet-1k预训练模型
+  baseline_model: False
+  drop_path: 0.3      #可以探索一下拉高一点，0.5   
+  label_smooth: 0.3   #
+
+train:
+  lr: 1.0e-04          
+  clip_grad: 8.0    # 强化梯度裁剪
+  warmup_epochs: 5  # 尝试5
+  epochs: 50       # 
+  optimizer: AdamW
+
+misc:
+  seed: 42
+  eval_every: 2     # 每2轮评估一次
+  amp: True         # 混合精度训练
+  inference_mode: False  # 推理模式（start.sh会动态修改）
+
+# 推理专用配置节  
+inference:
+  save_predictions: True
+  prediction_format: "webinat5000"  
+
+

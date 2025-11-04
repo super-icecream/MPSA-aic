@@ -1,0 +1,48 @@
+data:
+  img_size: 384
+  dataset: webfg400
+  batch_size: 16
+  data_root: /data/  # Docker容器内数据集挂载路径
+  # 针对噪声标签的数据增强策略
+  #blur: 0.15        # 轻微增加模糊增强，没用
+  #color: 0.2        # 颜色抖动帮助处理噪声，没用
+  mixup: 0.4        # mixup缓解噪声标签过拟合
+  cutmix: 0.4       # cutmix增强鲁棒性
+  
+parameters:
+  parts_ratio: 2
+  num_heads: 32
+  att_drop: 0.15    # 注意力Dropout，
+  head_drop: 0.25   # 注意力头Dropout，往上调没什么用了
+  parts_drop: 0.6   # 0.6到头了，往上没什么提升了，不管了
+  fwp: True
+  pos: True
+  cross_layer: True
+  parts_base: 0.
+
+model:
+  type: swin
+  name: swin_base_patch4_window12_384  # 使用ImageNet-1k预训练模型
+  baseline_model: False
+  drop_path: 0.40   # 增加DropPath正则化，0.4就是最好的了，不用在尝试了
+  label_smooth: 0.15  # 0.1反而更好
+
+train:
+  lr: 1e-03         # 
+  clip_grad: 8.0    # 适度梯度裁剪
+  warmup_epochs: 8  # 增加warmup轮数
+  epochs: 80        # 训练轮数
+  optimizer: AdamW
+
+misc:
+  seed: 42
+  eval_every: 2     # 每2轮评估一次
+  inference_mode: False  # 推理模式开关（start.sh会动态修改）
+  
+# 推理专用配置节
+inference:
+  test_data_path: "test_WebFG400/test_list.txt"
+  save_predictions: True
+  prediction_format: "webfg400"  # WebFG400格式
+
+

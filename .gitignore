@@ -1,0 +1,65 @@
+# ===================================
+# MPSA项目 - Git忽略文件
+# ===================================
+
+# 数据集（不上传）
+database/
+data/
+dataset/
+
+# 训练输出和实验记录（不上传）
+MPSA/output/
+output/
+outputs/
+*.log
+*.csv
+*.bin
+*.pth.tar
+
+# Python缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# IDE配置
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# AutoDL特定文件
+.autodl/
+initial*
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+
+# 其他文档（保留主要文档）
+CLAUDE.md
+AutoDL_Docker_RouteA_完善版.md
+Thinking_notes/
+
+# requirements.txt（使用精简版）
+MPSA/requirements.txt
+
+# 预训练模型（太大，不上传到GitHub，在文档中提供下载链接）
+MPSA/pretrained/*.pth
+MPSA/pretrained/*.bin
+
+# 可视化保存的特征文件（非必需，超大）
+MPSA/visualize/saved_features/*.pth
+MPSA/visualize/saved_features/*.bin
+

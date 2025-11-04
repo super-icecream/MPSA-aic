@@ -1,0 +1,46 @@
+data:
+  img_size: 384
+  dataset: webfg496
+  batch_size: 16
+  data_root: /root/autodl-tmp/database/
+  # 针对噪声标签的数据增强策略
+  blur: 0.15        # 轻微增加模糊增强
+  color: 0.2        # 颜色抖动帮助处理噪声
+  mixup: 0.3        # mixup缓解噪声标签过拟合
+  cutmix: 0.3       # cutmix增强鲁棒性
+  
+parameters:
+  parts_ratio: 2
+  num_heads: 32
+  att_drop: 0.15    # 稍微增加dropout应对噪声
+  head_drop: 0.25   # 增加head dropout
+  parts_drop: 0.5   # 增加parts dropout提升鲁棒性
+  fwp: True
+  pos: True
+  cross_layer: True
+  parts_base: 0.
+
+model:
+  type: swin
+  name: Swin Base
+  baseline_model: False
+  drop_path: 0.25   # 增加DropPath正则化
+  label_smooth: 0.15  # 增强标签平滑应对噪声标签
+
+train:
+  lr: 6e-03         # 略微降低学习率，更稳定训练
+  clip_grad: 8.0    # 适度梯度裁剪
+  warmup_epochs: 8  # 增加warmup轮数
+  epochs: 80        # 适中的训练轮数
+  optimizer: AdamW
+
+misc:
+  seed: 42
+  eval_every: 2     # 每2轮评估一次
+  inference_mode: False  # 推理模式开关
+  
+# 推理专用配置节
+inference:
+  test_data_path: "test_WebFG496/new_val-list_unlabeled.txt"
+  save_predictions: True
+  prediction_format: "webfg496"  # WebFG496格式：path: label

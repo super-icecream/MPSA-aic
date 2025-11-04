@@ -1,0 +1,75 @@
+# Git相关
+.git
+.gitignore
+.gitattributes
+
+# Python缓存
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# 虚拟环境
+venv/
+ENV/
+env/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# 输出文件（训练结果不打包进镜像）
+output/
+outputs/
+*.log
+*.csv
+*.bin
+*.pth.tar
+
+# 数据集（不打包进镜像）
+database/
+data/
+dataset/
+
+# IDE配置
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 文档和说明（可选）
+*.md
+!README_DOCKER.md  # 只保留Docker使用说明
+
+# 原始配置文件（保留Docker版本）
+configs/swin-webfg400.yaml
+configs/swin-webinat5000.yaml
+
+# 测试文件
+test/
+tests/
+*.test.py
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+
+# AutoDL特定文件
+.autodl/
+initial*
+
+# 打包文件
+*.tar
+*.tar.gz
+*.zip
+
+# 不需要的预训练模型（只保留需要的）
+# pretrained/下的文件在Dockerfile中明确指定
+
